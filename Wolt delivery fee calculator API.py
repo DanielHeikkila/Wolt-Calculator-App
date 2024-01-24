@@ -4,6 +4,7 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
+#Main calculation function
 def calculateDeliveryFee(cartValue, deliveryDistance, numberOfItems):
     deliveryFee = 0
     if (cartValue >= 200):
@@ -20,19 +21,24 @@ def calculateDeliveryFee(cartValue, deliveryDistance, numberOfItems):
         return 15
     return deliveryFee
 
+#This here takes the json sent by the frontends as shown in the "import requests.py" file
 @app.route('/calculateDeliveryFee', methods=['POST'])
 def CalculatorAPI():
     try:
         data = request.get_json()
         
+        #Makes Python values out of the json
         cartValue = data.get('cartValue', 0)
         deliveryDistance = data.get('deliveryDistance', 0)
         numberOfItems = data.get('numberOfItems', 0)
 
+        #Calls the calculator function
         deliveryFee = calculateDeliveryFee(cartValue, deliveryDistance, numberOfItems)
 
+        #Sends result back as json
         response = {'deliveryFee': deliveryFee}
         return jsonify(response), 200
+    #In case of error sends back the error message
     except Exception as e:
         return jsonify({'error': str(e)}), 500
     
