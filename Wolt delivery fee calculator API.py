@@ -1,7 +1,7 @@
 import json
 import math
 from flask import Flask, request, jsonify
-import datetime
+from dateutil import parser
 import logging
 
 app = Flask(__name__)
@@ -34,7 +34,10 @@ def CalculatorAPI():
         deliveryDistance = data.get('deliveryDistance', 0)
         numberOfItems = data.get('numberOfItems', 0)
         time_str = data.get('time', '')
-        timeOfOrder = datetime.fromisoformat(time_str)
+        try:
+            timeOfOrder = parser.parse(time_str)
+        except ValueError:
+            timeOfOrder = None
         logging.info(f'{numberOfItems}, {deliveryDistance} , {cartValue}, {timeOfOrder}')
 
         #Calls the calculator function
