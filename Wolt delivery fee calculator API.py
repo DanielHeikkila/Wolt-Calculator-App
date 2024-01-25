@@ -31,6 +31,9 @@ def CalculatorAPI():
         cartValue = data.get('cartValue', 0)
         deliveryDistance = data.get('deliveryDistance', 0)
         numberOfItems = data.get('numberOfItems', 0)
+        time_str = data.get('time', '')
+        timeOfOrder = datetime.fromisoformat(time_str)
+        logging.info(f'{numberOfItems}, {deliveryDistance} , {cartValue}, {timeOfOrder}')
 
         #Calls the calculator function
         deliveryFee = calculateDeliveryFee(cartValue, deliveryDistance, numberOfItems)
