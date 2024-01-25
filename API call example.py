@@ -9,7 +9,8 @@ url = 'http://127.0.0.1:5000/calculateDeliveryFee'
 data = {
     'cartValue': 120,
     'deliveryDistance': 3400,
-    'numberOfItems': 15
+    'numberOfItems': 15,
+    'time': "2024-01-15T13:00:00Z"
 }
 
 #Here is the request and where you would handle the response
